@@ -14,6 +14,7 @@
 </head>
 <body>
 
+<!-- ============ HEADER ============ -->
 <header id="site-header">
   <div class="wrap header-inner">
     <a href="#inicio" class="logo"><span class="dot"></span>TEYAR</a>
@@ -44,6 +45,7 @@
   <a href="#contacto" class="btn btn-primary">Solicitar cotización</a>
 </div>
 
+<!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
   <div class="hero-bg" role="img" aria-label="Nave industrial en construcción al atardecer"></div>
   <div class="hero-annot mono">
@@ -61,6 +63,7 @@
   <div class="scroll-cue"><div class="tick"></div><span>SCROLL</span></div>
 </section>
 
+<!-- ============ METRICAS ============ -->
 <section class="metrics">
   <div class="wrap metrics-grid">
     <div class="metric-item reveal">
@@ -82,6 +85,7 @@
   </div>
 </section>
 
+<!-- ============ NOSOTROS ============ -->
 <section class="section-pad" id="nosotros">
   <div class="wrap nosotros-grid">
     <div class="nosotros-img reveal">
@@ -98,6 +102,7 @@
   </div>
 </section>
 
+<!-- ============ SERVICIOS ============ -->
 <section class="section-pad" id="servicios" style="background:#F3F2ED;">
   <div class="wrap">
     <div class="eyebrow reveal">Lo que hacemos</div>
@@ -137,6 +142,7 @@
   </div>
 </section>
 
+<!-- ============ PROYECTOS ============ -->
 <section class="section-pad" id="proyectos">
   <div class="wrap">
     <div class="proyectos-head reveal">
@@ -205,6 +211,7 @@
   </div>
 </section>
 
+<!-- ============ PROCESO ============ -->
 <section class="section-pad" id="proceso" style="background:#F3F2ED;">
   <div class="wrap">
     <div class="eyebrow reveal">Cómo trabajamos</div>
@@ -237,6 +244,7 @@
   </div>
 </section>
 
+<!-- ============ POR QUE TEYAR ============ -->
 <section class="porque section-pad-sm">
   <div class="wrap">
     <div class="eyebrow reveal">Nuestra ventaja</div>
@@ -268,30 +276,33 @@
   </div>
 </section>
 
+<!-- ============ GALERIA (FLIPBOOK) ============ -->
 <section class="section-pad" id="galeria">
   <div class="wrap">
     <div class="eyebrow reveal">Registro fotográfico</div>
-    <h2 class="reveal" style="font-size:clamp(28px,3.2vw,42px); margin-bottom:36px;">Galería</h2>
-    <div class="gal-filters reveal">
-      <button class="gal-filter active" data-filter="all">Todos</button>
-      <button class="gal-filter" data-filter="construccion">Construcción</button>
-      <button class="gal-filter" data-filter="civil">Obra civil</button>
-      <button class="gal-filter" data-filter="electromecanica">Electromecánica</button>
-      <button class="gal-filter" data-filter="interiores">Interiores</button>
+    <h2 class="reveal" style="font-size:clamp(28px,3.2vw,42px); margin-bottom:12px;">Galería</h2>
+    <p class="reveal" style="color:var(--gris-concreto); font-size:15px; max-width:52ch; margin-bottom:44px;">
+      Da clic en la esquina de la página o usa las flechas para pasar las hojas del álbum de proyectos.
+    </p>
+
+    <div class="flipbook-wrap reveal">
+      <button class="flip-nav flip-prev" id="flipPrev" aria-label="Página anterior">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+
+      <div class="flipbook-frame">
+        <div id="libroGaleria" class="contenedor-libro"></div>
+      </div>
+
+      <button class="flip-nav flip-next" id="flipNext" aria-label="Página siguiente">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
     </div>
-    <div class="gal-grid reveal" id="galGrid">
-      <div class="gal-item" data-cat="construccion"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=460&q=62" alt="Construcción de nave industrial"></div>
-      <div class="gal-item" data-cat="civil"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=460&q=62" alt="Obra civil en proceso"></div>
-      <div class="gal-item" data-cat="electromecanica"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=460&q=62" alt="Instalación electromecánica"></div>
-      <div class="gal-item" data-cat="interiores"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=460&q=62" alt="Interior de nave industrial"></div>
-      <div class="gal-item" data-cat="construccion"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=460&q=62" alt="Cuadrilla en construcción"></div>
-      <div class="gal-item" data-cat="civil"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=460&q=62" alt="Estructura de acero"></div>
-      <div class="gal-item" data-cat="electromecanica"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1516216628859-9bccecab13ca?auto=format&fit=crop&w=460&q=62" alt="Trabajo electromecánico en sitio"></div>
-      <div class="gal-item" data-cat="interiores"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=460&q=62" alt="Interior de corporativo industrial"></div>
-    </div>
+    <p class="mono" style="text-align:center; font-size:11px; color:var(--gris-concreto); margin-top:18px;" id="flipCounter"></p>
   </div>
 </section>
 
+<!-- ============ CTA ============ -->
 <section class="cta">
   <div class="cta-bg" role="img" aria-label="Grúa de construcción contra el cielo"></div>
   <div class="wrap cta-content reveal">
@@ -301,6 +312,7 @@
   </div>
 </section>
 
+<!-- ============ CONTACTO ============ -->
 <section class="section-pad" id="contacto">
   <div class="wrap contacto-grid">
     <div class="contacto-info reveal">
@@ -323,7 +335,7 @@
         <div><p>Horarios</p><p>Lunes a viernes, 9:00–18:00</p></div>
       </div>
       <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10992.967525180633!2d-99.53384150206851!3d19.279934004304682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdf52fbc549d9f%3A0xb3fa872b60d8cbab!2sTEYAR%20S.A.%20DE%20C.V.!5e0!3m2!1ses-419!2smx!4v1787082147716!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5854.008644452631!2d-99.53548304808278!3d19.27916571407734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdf52fbc549d9f%3A0xb3fa872b60d8cbab!2sTEYAR%20S.A.%20DE%20C.V.!5e0!3m2!1ses-419!2smx!4v1787091160153!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
 
@@ -366,6 +378,7 @@
   </div>
 </section>
 
+<!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -394,9 +407,10 @@
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
-        <p>+52 (722) 000 0000</p>
-        <p>contacto@teyar.com.mx</p>
-        <p>Toluca, Estado de México</p>
+        <p>+52 (728) 282 1461</p>
+        <p>+52 (728) 282 1466</p>
+        <p>sociales@teyar.com.mx</p>
+        <p>San Mateo Atenco, Estado de Mexico</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -406,16 +420,14 @@
   </div>
 </footer>
 
+<!-- ============ PROJECT MODAL ============ -->
 <div class="modal-bg" id="modalBg">
   <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
   <div class="modal" id="modalContent"></div>
 </div>
 
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
-  <img id="lightboxImg" src="" alt="">
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
 <script src="funciones.js" defer></script>
 </body>
 </html>
+

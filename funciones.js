@@ -1,3 +1,7 @@
+// ---- fricción básica: bloquear clic derecho y atajos comunes de DevTools ----
+  // Nota: esto NO oculta el código real; cualquiera con conocimientos básicos
+  // puede saltárselo (ej. deshabilitando JS o usando las opciones del menú del navegador).
+  // Solo disuade a usuarios casuales, no protege información sensible.
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('keydown', e => {
     const k = e.key.toLowerCase();
@@ -6,7 +10,7 @@
     if (e.ctrlKey && k === 'u') e.preventDefault();
   });
 
-  // encabezado
+  // ---- header scroll state (throttled with rAF, passive listener) ----
   const header = document.getElementById('site-header');
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
@@ -19,7 +23,7 @@
     }
   }, { passive: true });
 
-  // movmiento
+  // ---- mobile nav ----
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
   hamburger.addEventListener('click', () => {
@@ -31,7 +35,7 @@
     hamburger.setAttribute('aria-expanded', false);
   }));
 
-  // scroll 
+  // ---- reveal on scroll ----
   const revealEls = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -43,7 +47,7 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  
+  // ---- counters ----
   const counters = document.querySelectorAll('.counter');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -65,7 +69,7 @@
   }, { threshold: 0.4 });
   counters.forEach(el => counterObserver.observe(el));
 
- 
+  // ---- project data + modal ----
   const projects = [
     { code:'TY-2024-014', name:'Nave Industrial Bajío Norte', meta:'Querétaro · Nave industrial · 2024',
       img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80',
@@ -124,45 +128,75 @@
   }
   modalClose.addEventListener('click', closeModal);
   modalBg.addEventListener('click', (e) => { if (e.target === modalBg) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  // galleria
-  const filters = document.querySelectorAll('.gal-filter');
-  const galItems = document.querySelectorAll('.gal-item');
-  filters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      galItems.forEach(item => {
-        item.classList.toggle('hidden', f !== 'all' && item.dataset.cat !== f);
-      });
+  // ============================================================
+  // GALERÍA — LIBRO DE FOTOS (FLIPBOOK)
+  // ============================================================
+  // CÓMO AGREGAR TUS FOTOS:
+  // 1) Crea una carpeta llamada "images" y adentro otra llamada "galeria",
+  //    junto a tu archivo index.html (misma carpeta que styles.css y script.js).
+  // 2) Copia ahí tus fotos y ponles estos mismos nombres (foto-01.jpg, foto-02.jpg, etc.)
+  //    — o bien, cambia los nombres de la lista de abajo por los nombres reales de tus fotos.
+  // 3) Usa fotos verticales (más altas que anchas) para que se vean mejor como páginas de libro.
+  // 4) Si quieres más o menos páginas, solo agrega o quita líneas de esta lista.
+  const FOTOS_GALERIA = [
+    'images/galeria/foto-01.jpg',
+    'images/galeria/foto-02.jpg',
+    'images/galeria/foto-03.jpg',
+    'images/galeria/foto-04.jpg',
+    'images/galeria/foto-05.jpg',
+    'images/galeria/foto-06.jpg'
+  ];
+
+  (function initGaleriaFlipbook(){
+    const libro = document.getElementById('libroGaleria');
+    if (!libro || typeof St === 'undefined') return;
+
+    FOTOS_GALERIA.forEach((src, i) => {
+      const pagina = document.createElement('div');
+      pagina.className = 'pagina';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `Foto de galería ${i + 1}`;
+      img.loading = 'lazy';
+      img.onerror = () => {
+        pagina.classList.add('pagina-vacia');
+        pagina.innerHTML = `<span>Falta esta foto:<br>${src}</span>`;
+      };
+      pagina.appendChild(img);
+      libro.appendChild(pagina);
     });
-  });
 
-  
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxClose = document.getElementById('lightboxClose');
-  galItems.forEach(item => {
-    item.addEventListener('click', () => {
-      lightboxImg.src = item.querySelector('img').src;
-      lightboxImg.alt = item.querySelector('img').alt;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
+    const pageFlip = new St.PageFlip(libro, {
+      width: 400,
+      height: 560,
+      size: 'stretch',
+      minWidth: 260,
+      maxWidth: 560,
+      minHeight: 360,
+      maxHeight: 780,
+      showCover: false,
+      usePortrait: true,
+      maxShadowOpacity: 0.5,
+      mobileScrollSupport: false
     });
-  });
-  function closeLightbox(){
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    pageFlip.loadFromHTML(document.querySelectorAll('#libroGaleria .pagina'));
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape'){ closeModal(); closeLightbox(); }
-  });
+    const counter = document.getElementById('flipCounter');
+    function updateCounter(){
+      if (counter) counter.textContent = `Página ${pageFlip.getCurrentPageIndex() + 1} de ${pageFlip.getPageCount()}`;
+    }
+    updateCounter();
+    pageFlip.on('flip', updateCounter);
 
-  // contacto
+    const prevBtn = document.getElementById('flipPrev');
+    const nextBtn = document.getElementById('flipNext');
+    prevBtn?.addEventListener('click', () => pageFlip.flipPrev());
+    nextBtn?.addEventListener('click', () => pageFlip.flipNext());
+  })();
+
+  // ---- contact form ----
   const form = document.getElementById('contactForm');
   const formMsg = document.getElementById('formMsg');
   form.addEventListener('submit', (e) => {
