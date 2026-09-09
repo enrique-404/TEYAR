@@ -141,12 +141,12 @@
   // 3) Usa fotos verticales (más altas que anchas) para que se vean mejor como páginas de libro.
   // 4) Si quieres más o menos páginas, solo agrega o quita líneas de esta lista.
   const FOTOS_GALERIA = [
-    'images/galeria/foto-01.jpg',
-    'images/galeria/foto-02.jpg',
-    'images/galeria/foto-03.jpg',
-    'images/galeria/foto-04.jpg',
-    'images/galeria/foto-05.jpg',
-    'images/galeria/foto-06.jpg'
+    'images/Fotos_teyar/foto-01.jpg',
+    'images/Fotos_teyar/foto-02.jpg',
+    'images/Fotos_teyar/foto-03.jpg',
+    'images/Fotos_teyar/foto-04.jpg',
+    'images/Fotos_teyar/foto-05.jpg',
+    'images/Fotos_teyar/foto-06.jpg'
   ];
 
   (function initGaleriaFlipbook(){
