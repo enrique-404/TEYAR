@@ -47,12 +47,14 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  // ---- counters ----
+  // ---- counters (se repiten cada vez que vuelven a entrar en pantalla) ----
   const counters = document.querySelectorAll('.counter');
+  const counterFrames = new Map(); // guarda el requestAnimationFrame activo de cada número
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const el = entry.target;
       if (entry.isIntersecting) {
-        const el = entry.target;
+        if (counterFrames.has(el)) cancelAnimationFrame(counterFrames.get(el));
         const target = parseInt(el.dataset.target, 10);
         const duration = 1400;
         const start = performance.now();
@@ -60,14 +62,34 @@
           const p = Math.min((now - start) / duration, 1);
           const eased = 1 - Math.pow(1 - p, 3);
           el.textContent = Math.round(eased * target);
-          if (p < 1) requestAnimationFrame(tick);
+          if (p < 1) {
+            counterFrames.set(el, requestAnimationFrame(tick));
+          } else {
+            counterFrames.delete(el);
+          }
         }
-        requestAnimationFrame(tick);
-        counterObserver.unobserve(el);
+        counterFrames.set(el, requestAnimationFrame(tick));
+      } else {
+        // al salir de pantalla se reinicia a 0 para que se vuelva a animar la próxima vez
+        if (counterFrames.has(el)) {
+          cancelAnimationFrame(counterFrames.get(el));
+          counterFrames.delete(el);
+        }
+        el.textContent = '0';
       }
     });
   }, { threshold: 0.4 });
   counters.forEach(el => counterObserver.observe(el));
+
+  // ---- menú desplegable de proyectos por disciplina (tarjetas de servicio) ----
+  document.querySelectorAll('.servicio-card').forEach(card => {
+    const btn = card.querySelector('.servicio-link');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const abierto = card.classList.toggle('open');
+      btn.setAttribute('aria-expanded', abierto);
+    });
+  });
 
   // ---- project data + modal ----
   const projects = [
@@ -214,5 +236,4 @@
     formMsg.className = 'form-msg ok';
     form.reset();
   });
-
   
