@@ -124,7 +124,7 @@
        Un GIF de 20 s o más funciona igual, solo cuida que el archivo no pese
        demasiado (varios MB) o la carga inicial del sitio se sentirá lenta. */
     background:linear-gradient(180deg, rgba(13,43,54,0.55) 0%, rgba(13,43,54,0.72) 55%, rgba(13,43,54,0.94) 100%),
-      url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=68') center/cover no-repeat;
+      url('Fotos_teyar/gif_pagina_web.gif') center/cover no-repeat;
     background-attachment:scroll;
   }
   .hero-annot{
